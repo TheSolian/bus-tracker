@@ -9,21 +9,21 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ChartAreaIcon, HomeIcon } from "lucide-react";
+import { BusIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const items = [
   {
-    title: "Home",
+    title: "Arrivals",
     url: "/",
-    icon: HomeIcon,
+    icon: BusIcon,
   },
-  {
-    title: "Statistics",
-    url: "/statistics",
-    icon: ChartAreaIcon,
-  },
+  // {
+  //   title: "Statistics",
+  //   url: "/statistics",
+  //   icon: ChartAreaIcon,
+  // },
 ];
 
 export const HomeSidebar = () => {

@@ -1,5 +1,5 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { HomeLayout } from "@/modules/home/ui/layouts/home-layout";
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { HomeLayout } from '@/modules/home/ui/layouts/home-layout';
 
 interface Props {
   children: React.ReactNode;
