@@ -28,7 +28,7 @@ async function validateData(db: ReturnType<typeof drizzle>) {
     WHERE table_schema = 'public'
   `)) as QueryResponse<QueryResult>;
 
-  const requiredTables = ['users', 'sessions', 'accounts']; // Add your critical tables
+  const requiredTables = ['buses', 'bus_schedules', 'bus_arrivals'];
   const missingTables = requiredTables.filter(
     (table) => !tables.rows.some((t) => t.table_name === table),
   );
@@ -40,47 +40,37 @@ async function validateData(db: ReturnType<typeof drizzle>) {
   // 2. Check for orphaned records
   const orphanedRecords = (await db.execute<CountResult>(sql`
     SELECT COUNT(*) as count
-    FROM sessions s
-    LEFT JOIN users u ON s.user_id = u.id
-    WHERE u.id IS NULL
+    FROM bus_arrivals ba
+    LEFT JOIN buses b ON ba.bus_id = b.id
+    WHERE b.id IS NULL
   `)) as QueryResponse<CountResult>;
 
   if (Number(orphanedRecords.rows[0].count) > 0) {
-    throw new Error('Found orphaned session records');
+    throw new Error('Found orphaned bus arrival records');
   }
 
-  // 3. Validate data formats
-  const invalidEmails = (await db.execute<CountResult>(sql`
+  // 3. Check for orphaned schedule records
+  const orphanedSchedules = (await db.execute<CountResult>(sql`
     SELECT COUNT(*) as count
-    FROM users
-    WHERE email !~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'
+    FROM bus_schedules bs
+    LEFT JOIN buses b ON bs.bus_id = b.id
+    WHERE b.id IS NULL
   `)) as QueryResponse<CountResult>;
 
-  if (Number(invalidEmails.rows[0].count) > 0) {
-    throw new Error('Found invalid email formats');
+  if (Number(orphanedSchedules.rows[0].count) > 0) {
+    throw new Error('Found orphaned bus schedule records');
   }
 
-  // 4. Check for required data
-  const requiredData = (await db.execute<CountResult>(sql`
+  // 4. Check for orphaned arrival schedule records
+  const orphanedArrivalSchedules = (await db.execute<CountResult>(sql`
     SELECT COUNT(*) as count
-    FROM users
-    WHERE name IS NULL OR email IS NULL
+    FROM bus_arrivals ba
+    LEFT JOIN bus_schedules bs ON ba.schedule_id = bs.id
+    WHERE bs.id IS NULL
   `)) as QueryResponse<CountResult>;
 
-  if (Number(requiredData.rows[0].count) > 0) {
-    throw new Error('Found records with missing required fields');
-  }
-
-  // 5. Verify foreign key constraints
-  const fkViolations = (await db.execute<CountResult>(sql`
-    SELECT COUNT(*) as count
-    FROM accounts a
-    LEFT JOIN users u ON a.user_id = u.id
-    WHERE u.id IS NULL
-  `)) as QueryResponse<CountResult>;
-
-  if (Number(fkViolations.rows[0].count) > 0) {
-    throw new Error('Found foreign key constraint violations');
+  if (Number(orphanedArrivalSchedules.rows[0].count) > 0) {
+    throw new Error('Found orphaned bus arrival schedule records');
   }
 
   console.log('Data validation completed successfully');
