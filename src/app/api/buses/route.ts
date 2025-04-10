@@ -1,6 +1,6 @@
 import { db } from '@/db';
-import { busArrivals, buses } from '@/db/schema';
-import { count, eq } from 'drizzle-orm';
+import { buses } from '@/db/schema';
+import { count } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
@@ -10,24 +10,14 @@ export async function GET(request: Request) {
 
   const offset = (page - 1) * limit;
 
-  const arrivals = await db
+  const busesList = await db
     .select({
-      id: busArrivals.id,
-      arrivalTime: busArrivals.arrivalTime,
-      departureTime: busArrivals.departureTime,
-      position: busArrivals.position,
-      createdAt: busArrivals.createdAt,
-      updatedAt: busArrivals.updatedAt,
-      date: busArrivals.date,
-      bus: {
-        id: buses.id,
-        number: buses.number,
-        createdAt: buses.createdAt,
-        updatedAt: buses.updatedAt,
-      },
+      id: buses.id,
+      number: buses.number,
+      createdAt: buses.createdAt,
+      updatedAt: buses.updatedAt,
     })
-    .from(busArrivals)
-    .leftJoin(buses, eq(busArrivals.busId, buses.id))
+    .from(buses)
     .limit(limit)
     .offset(offset);
 
@@ -36,11 +26,11 @@ export async function GET(request: Request) {
   if (hasPagination) {
     const totalCount = await db
       .select({ count: count() })
-      .from(busArrivals)
+      .from(buses)
       .then((result) => result[0].count);
 
     return NextResponse.json({
-      data: arrivals,
+      data: busesList,
       pagination: {
         page,
         limit,
@@ -50,5 +40,5 @@ export async function GET(request: Request) {
     });
   }
 
-  return NextResponse.json(arrivals);
+  return NextResponse.json(busesList);
 }

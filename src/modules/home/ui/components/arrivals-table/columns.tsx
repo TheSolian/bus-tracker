@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { formatTime } from '@/lib/utils';
+import { formatDate, formatTime } from '@/lib/utils';
 import { BusArrivalWithBus } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDownIcon } from 'lucide-react';
@@ -82,6 +82,24 @@ export const columns: ColumnDef<BusArrivalWithBus>[] = [
     cell: ({ row }) => {
       const departureTime = row.original.departureTime;
       return <div className='ml-3'>{formatTime(departureTime)}</div>;
+    },
+  },
+  {
+    accessorKey: 'date',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Date
+          <ArrowUpDownIcon className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const date = row.original.date;
+      return <div className='ml-3'>{formatDate(date)}</div>;
     },
   },
   {

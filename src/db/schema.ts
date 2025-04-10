@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm';
 import {
+  date,
   pgEnum,
   pgTable,
   time,
@@ -13,8 +14,8 @@ export const positionEnum = pgEnum('position', ['front', 'back']);
 export const buses = pgTable('buses', {
   id: uuid('id').primaryKey().defaultRandom(),
   number: varchar('number', { length: 3 }).notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
 export const busRelations = relations(buses, ({ many }) => ({
@@ -27,10 +28,10 @@ export const busSchedules = pgTable('bus_schedules', {
   busId: uuid('bus_id')
     .references(() => buses.id)
     .notNull(),
-  arrival: time('arrival', { precision: 0, withTimezone: false }).notNull(),
-  departure: time('departure', { precision: 0, withTimezone: false }).notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
+  arrival: time('arrival', { withTimezone: false, precision: 0 }).notNull(),
+  departure: time('departure', { withTimezone: false, precision: 0 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
 export const busScheduleRelations = relations(
@@ -49,14 +50,15 @@ export const busArrivals = pgTable('bus_arrivals', {
   busId: uuid('bus_id')
     .references(() => buses.id)
     .notNull(),
-  arrivalTime: timestamp('arrival_time').notNull(),
+  date: date('date').notNull(),
   departureTime: timestamp('departure_time').notNull(),
+  arrivalTime: timestamp('arrival_time').notNull(),
   scheduleId: uuid('schedule_id')
     .references(() => busSchedules.id)
     .notNull(),
   position: positionEnum('position').notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
 export const busArrivalRelations = relations(busArrivals, ({ one }) => ({

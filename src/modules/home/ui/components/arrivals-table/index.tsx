@@ -123,7 +123,7 @@ export const ArrivalsTable = <TData, TValue>({
       </div>
       <CreateArrivalModal
         open={openCreateArrivalModal}
-        onClose={() => setOpenCreateArrivalModal(false)}
+        setIsOpen={setOpenCreateArrivalModal}
       />
     </div>
   );

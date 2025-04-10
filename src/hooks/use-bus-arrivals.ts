@@ -1,3 +1,5 @@
+'use client';
+
 import { BusArrivalWithBus, PaginatedResponse } from '@/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
