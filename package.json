@@ -10,7 +10,9 @@
     "db:generate": "drizzle-kit generate --config=./drizzle.config.ts",
     "db:migrate": "drizzle-kit migrate --config=./drizzle.config.ts",
     "db:push": "drizzle-kit push --config=./drizzle.config.ts",
-    "db:studio": "drizzle-kit studio --config=./drizzle.config.ts"
+    "db:studio": "drizzle-kit studio --config=./drizzle.config.ts",
+    "test": "bunx playwright test",
+    "test:ui": "bunx playwright test --ui-port=3003 --ui-host=127.0.0.1"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -74,6 +76,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.51.1",
     "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.72.2",
     "@types/node": "^20",

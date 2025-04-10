@@ -49,9 +49,12 @@ export const ArrivalsTable = <TData, TValue>({
   });
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4' data-testid='arrivals-table'>
       <div className='flex items-center justify-end'>
-        <Button onClick={() => setOpenCreateArrivalModal(true)}>
+        <Button
+          onClick={() => setOpenCreateArrivalModal(true)}
+          data-testid='register-arrival-button'
+        >
           <PlusIcon className='size-4' />
           <span>Register Arrival</span>
         </Button>
