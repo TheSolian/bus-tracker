@@ -95,7 +95,7 @@ async function runSafeMigrations() {
   try {
     // 1. Run migrations
     console.log('Running migrations...');
-    await migrate(db, { migrationsFolder: 'src/db/migrations' });
+    await migrate(db, { migrationsFolder: 'drizzle' });
 
     // 2. Validate data
     console.log('Validating data...');
