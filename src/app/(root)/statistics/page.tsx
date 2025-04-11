@@ -13,9 +13,23 @@ import { useBusSchedules } from '@/hooks/use-bus-schedules';
 import { useBuses } from '@/hooks/use-buses';
 import { BusPositionPerDayChart } from '@/modules/statistics/ui/components/bus-position-per-day-chart';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className='flex h-full items-center justify-center'>
+          Loading...
+        </div>
+      }
+    >
+      <StatisticsContent />
+    </Suspense>
+  );
+}
+
+function StatisticsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
