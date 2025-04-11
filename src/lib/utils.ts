@@ -21,3 +21,8 @@ export const formatDate = (date: Date | string) => {
     day: '2-digit',
   });
 };
+
+export const getWeekday = (date: Date | string) => {
+  const formattedDate = new Date(date);
+  return formattedDate.toLocaleDateString('en-US', { weekday: 'long' });
+};

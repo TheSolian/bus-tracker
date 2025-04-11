@@ -49,6 +49,24 @@ export const columns: ColumnDef<BusArrivalWithBus>[] = [
     },
   },
   {
+    accessorKey: 'date',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Date
+          <ArrowUpDownIcon className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const date = row.original.date;
+      return <div className='ml-3'>{formatDate(date)}</div>;
+    },
+  },
+  {
     accessorKey: 'arrivalTime',
     header: ({ column }) => {
       return (
@@ -82,24 +100,6 @@ export const columns: ColumnDef<BusArrivalWithBus>[] = [
     cell: ({ row }) => {
       const departureTime = row.original.departureTime;
       return <div className='ml-3'>{formatTime(departureTime)}</div>;
-    },
-  },
-  {
-    accessorKey: 'date',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant='ghost'
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Date
-          <ArrowUpDownIcon className='ml-2 h-4 w-4' />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const date = row.original.date;
-      return <div className='ml-3'>{formatDate(date)}</div>;
     },
   },
   {

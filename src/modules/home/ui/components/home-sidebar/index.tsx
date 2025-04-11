@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Sidebar,
@@ -8,30 +8,30 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { BusIcon } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+} from '@/components/ui/sidebar';
+import { BusIcon, ChartAreaIcon } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const items = [
   {
-    title: "Arrivals",
-    url: "/",
+    title: 'Arrivals',
+    url: '/',
     icon: BusIcon,
   },
-  // {
-  //   title: "Statistics",
-  //   url: "/statistics",
-  //   icon: ChartAreaIcon,
-  // },
+  {
+    title: 'Statistics',
+    url: '/statistics',
+    icon: ChartAreaIcon,
+  },
 ];
 
 export const HomeSidebar = () => {
   const pathname = usePathname();
 
   return (
-    <Sidebar className="z-40 border-none pt-16" collapsible="icon">
-      <SidebarContent className="bg-background border-r">
+    <Sidebar className='z-40 border-none pt-16' collapsible='icon'>
+      <SidebarContent className='bg-background border-r'>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarMenu>
@@ -42,9 +42,9 @@ export const HomeSidebar = () => {
                   asChild
                   isActive={pathname === item.url}
                 >
-                  <Link href={item.url} className="flex items-center gap-4">
+                  <Link href={item.url} className='flex items-center gap-4'>
                     <item.icon />
-                    <span className="text-sm">{item.title}</span>
+                    <span className='text-sm'>{item.title}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

@@ -136,7 +136,7 @@ export const CreateArrivalForm = ({ cancel }: Props) => {
                       </SelectItem>
                     ))
                   ) : schedules !== undefined && schedules.length === 0 ? (
-                    <div>No buses found</div>
+                    <div>No schedules found</div>
                   ) : (
                     <div>Loading...</div>
                   )}
