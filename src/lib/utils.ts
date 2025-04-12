@@ -6,11 +6,31 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const formatTime = (time: Date | string) => {
-  const date = new Date(time);
-  return date.toLocaleTimeString('de-CH', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  if (time instanceof Date) {
+    return time.toLocaleTimeString('de-CH', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  }
+
+  if (typeof time === 'string' && /^\d{2}:\d{2}$/.test(time)) {
+    return time;
+  }
+
+  if (typeof time === 'string' && /^\d{2}:\d{2}:\d{2}$/.test(time)) {
+    return time.slice(0, 5);
+  }
+
+  try {
+    const date = new Date(time);
+    return date.toLocaleTimeString('de-CH', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  } catch (error) {
+    console.error('Error formatting time:', error);
+    return 'Invalid time';
+  }
 };
 
 export const formatDate = (date: Date | string) => {

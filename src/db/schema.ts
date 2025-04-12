@@ -51,8 +51,14 @@ export const busArrivals = pgTable('bus_arrivals', {
     .references(() => buses.id)
     .notNull(),
   date: date('date').notNull(),
-  departureTime: timestamp('departure_time').notNull(),
-  arrivalTime: timestamp('arrival_time').notNull(),
+  departureTime: time('departure_time', {
+    withTimezone: false,
+    precision: 0,
+  }).notNull(),
+  arrivalTime: time('arrival_time', {
+    withTimezone: false,
+    precision: 0,
+  }).notNull(),
   scheduleId: uuid('schedule_id')
     .references(() => busSchedules.id)
     .notNull(),
