@@ -7,24 +7,15 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Validate the request body
     const validatedData = createArrivalFormSchema.parse(body);
-
-    // Combine date and times into proper DateTime objects
-    const departureDateTime = new Date(
-      `${validatedData.date}T${validatedData.departureTime}:00`,
-    );
-    const arrivalDateTime = new Date(
-      `${validatedData.date}T${validatedData.arrivalTime}:00`,
-    );
 
     const [newArrival] = await db
       .insert(busArrivals)
       .values({
         busId: validatedData.busId,
         date: validatedData.date,
-        arrivalTime: arrivalDateTime,
-        departureTime: departureDateTime,
+        arrivalTime: validatedData.arrivalTime,
+        departureTime: validatedData.departureTime,
         scheduleId: validatedData.scheduleId,
         position: validatedData.position,
       })

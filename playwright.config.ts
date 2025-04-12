@@ -9,7 +9,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 2 : undefined,
   reporter: [
     ['html', { outputFolder: path.join(outputDir, 'html-report') }],
     ['json', { outputFile: path.join(outputDir, 'results.json') }],
@@ -38,4 +38,5 @@ export default defineConfig({
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
   },
+  globalSetup: './playwright/test-setup.ts',
 });

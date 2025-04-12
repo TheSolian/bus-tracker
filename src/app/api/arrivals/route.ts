@@ -19,6 +19,7 @@ export async function GET(request: Request) {
       createdAt: busArrivals.createdAt,
       updatedAt: busArrivals.updatedAt,
       date: busArrivals.date,
+      scheduleId: busArrivals.scheduleId,
       bus: {
         id: buses.id,
         number: buses.number,

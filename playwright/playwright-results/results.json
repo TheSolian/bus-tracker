@@ -96,20 +96,20 @@
   },
   "suites": [
     {
-      "title": "arrivals.spec.ts",
-      "file": "arrivals.spec.ts",
+      "title": "statistics.spec.ts",
+      "file": "statistics.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Arrivals",
-          "file": "arrivals.spec.ts",
+          "title": "Statistics",
+          "file": "statistics.spec.ts",
           "line": 4,
           "column": 6,
           "specs": [
             {
-              "title": "should verify if the arrivals table is visible",
+              "title": "should update URL parameters when selecting bus and schedule",
               "ok": true,
               "tags": [],
               "tests": [
@@ -121,20 +121,20 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
+                      "workerIndex": 20,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1041,
+                      "duration": 2653,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-04-10T17:36:30.871Z",
+                      "startTime": "2025-04-11T21:18:02.609Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/Users/thesolian/Developer/projects/bus-tracker/playwright/playwright-results/test-artifacts/arrivals-Arrivals-should-v-539f6-e-arrivals-table-is-visible-chromium/trace.zip"
+                          "path": "/Users/thesolian/Developer/projects/bus-tracker/playwright/playwright-results/test-artifacts/statistics-Statistics-shou-f855e--selecting-bus-and-schedule-chromium/trace.zip"
                         }
                       ]
                     }
@@ -142,9 +142,9 @@
                   "status": "expected"
                 }
               ],
-              "id": "17e25764c59d7cc2919f-d19027c832e60eecd4df",
-              "file": "arrivals.spec.ts",
-              "line": 10,
+              "id": "ce6a6ad83d45104d2631-59f1dc6a59cb844274e9",
+              "file": "statistics.spec.ts",
+              "line": 41,
               "column": 7
             }
           ]
@@ -154,8 +154,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-04-10T17:36:30.179Z",
-    "duration": 2085.223999999929,
+    "startTime": "2025-04-11T21:18:01.970Z",
+    "duration": 3538.0470000000205,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,
